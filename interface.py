@@ -10,11 +10,14 @@ app.geometry("600x500")
 # First page
 notification1 = tk.Label(app, text="Today, you spent...",
                          width=20, height=5,
-                         font=("Helvetica", 18, 'bold')).place(x=0, y=10)
+                         font=("Helvetica", 18, 'bold')).place(x=10, y=0)
 
 # Where did you spend? (Dropdown menu)
-c_text = tk.StringVar()
-category = tk.Entry(app, width=20, textvariable=c_text).place(x=30, y=100)
+c_text = tk.StringVar(app)
+c_text.set('Where did you spend?')
+lists = ["Food", "Academics", "Transportation", "Entertainment"]
+category = tk.OptionMenu(app, c_text, *lists)
+category.pack()
 
 # How much did you spend?
 a_text = tk.IntVar()
