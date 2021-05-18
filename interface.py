@@ -5,46 +5,35 @@ import tkinter as tk
 from datetime import datetime
 
 # How to save each input on the file automatically
-
-
-def add_spent(col: str, amount: int) -> None:
-    """This function will show the list of the daily spent."""
-    element = tk.Label(app, text=col + ": " + str(amount))
-    # How to put the list of statements in different positions
-    element.place(relx=0.2, rely=0.7)
+records = []
 
 
 app = tk.Tk()
 app.title("Expense Tracker")
-app.geometry("600x500")
+app.geometry("1000x500")
 
-# First page
+# The entire interface design
+# Today's date
 date = tk.Label(app, text=datetime.today().strftime('%Y-%m-%d'),
                 height=4,
                 font=("Helvetica", 11, 'italic')).place(relx=0.8, rely=0.01)
-notification1 = tk.Label(app, text="Today, you spent...",
+
+# Overall record
+total_amount = tk.IntVar(app)
+total_amount.set(0)
+notification1 = tk.Label(app, text="Today, you spent ",
                          height=5,
-                         font=("Helvetica", 18, 'bold')).place(relx=0.05, rely=0.05)
+                         font=("Helvetica", 20, 'bold')).place(relx=0.1, rely=0.05)
+amount_label = tk.Label(app, text='￦' + str(total_amount.get()),
+                        height=4,
+                        fg='pink',
+                        font=("MS Sans Serif", 26, 'bold')).place(relx=0.4, rely=0.04)
 
-# Where did you spend?
-c_text = tk.StringVar(app)
-c_text.set('Where did you spend?')
-lists = ["Food", "Academics", "Transportation", "Entertainment"]
-category = tk.OptionMenu(app, c_text, *lists)
-category.place(relx=0.15, rely=0.2)
-
-# How much did you spend?
-a_text = tk.IntVar()
-amount = tk.Entry(app, textvariable=a_text).place(relx=0.55, rely=0.2)
-
-# Keep track of money you spent
-# Something that I need to consider
-# as soon as you type the money, the data will be automatically saved in the excel file
-confirm = tk.Button(app, text="Check!", width=10,
-                    command=lambda: add_spent(c_text.get(), a_text.get())
-                    ).place(relx=0.5, rely=0.34, anchor='center')
-# monthly = tk.Button(app, text="Check my monthly consumption!").place(relx=0.35, y=400)
-# annually = tk.Button(app, text="Check my annual consumption!").place(relx=0.35, y=450)
+# Buttons
+add_btn = tk.Button(app, text="Add expense", width=15).place(relx=0.1, rely=0.4)
+daily_btn = tk.Button(app, text="Daily expenses", width=15).place(relx=0.3, rely=0.4)
+monthly_btn = tk.Button(app, text="Monthly expenses", width=15).place(relx=0.5, rely=0.4)
+annual_btn = tk.Button(app, text="Annual expenses", width=15).place(relx=0.7, rely=0.4)
 
 # Run the app
 app.mainloop()
