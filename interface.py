@@ -16,7 +16,7 @@ app.geometry("1000x500")
 # Today's date
 date = tk.Label(app, text=datetime.today().strftime('%Y-%m-%d'),
                 height=4,
-                font=("Helvetica", 11, 'italic')).place(relx=0.8, rely=0.01)
+                font=("Helvetica", 13, 'italic')).place(relx=0.8, rely=0.01)
 
 # Overall record
 total_amount = tk.IntVar(app)
