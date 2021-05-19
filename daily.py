@@ -1,5 +1,16 @@
 """A python file which creates the interface to check the daily spent"""
 import tkinter as tk
+from datetime import datetime
+from csv import writer
+
+
+def add_expense(date: str, where: str, which: str, amount: int):
+    """Add a new row of information to a csv file"""
+    with open('expense_record.csv', 'a') as c_file:
+        w_object = writer(c_file)
+        c_file.write('/n')
+        w_object.writerow([date, where, which, amount])
+        c_file.close()
 
 
 def create_daily_interface() -> None:
@@ -31,7 +42,11 @@ def create_daily_interface() -> None:
     amount.place(relx=0.4, rely=0.5)
 
     # Complete button
-    complete = tk.Button(add_interface, text="Complete!")
+    complete = tk.Button(add_interface, text="Complete!",
+                         command=add_expense(datetime.today().strftime('%Y-%m-%d'),
+                                             w_text.get(),
+                                             c_text.get(),
+                                             a_text.get()))
     complete.place(relx=0.5, rely=0.7, anchor='center')
 
     add_interface.mainloop()
