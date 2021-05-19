@@ -3,9 +3,12 @@ This Python file is for creating the Desktop GUI of the expense tracker
 """
 import tkinter as tk
 from datetime import datetime
+from daily import create_daily_interface
 
-# How to save each input on the file automatically
-records = []
+
+def open_daily() -> None:
+    """This function opens a new window for recording the daily expense data."""
+    create_daily_interface()
 
 
 app = tk.Tk()
@@ -30,7 +33,8 @@ amount_label = tk.Label(app, text='￦' + str(total_amount.get()),
                         font=("MS Sans Serif", 26, 'bold')).place(relx=0.4, rely=0.04)
 
 # Buttons
-add_btn = tk.Button(app, text="Add expense", width=15).place(relx=0.1, rely=0.4)
+add_btn = tk.Button(app, text="Add expense",
+                    command=open_daily, width=15).place(relx=0.1, rely=0.4)
 daily_btn = tk.Button(app, text="Daily expenses", width=15).place(relx=0.3, rely=0.4)
 monthly_btn = tk.Button(app, text="Monthly expenses", width=15).place(relx=0.5, rely=0.4)
 annual_btn = tk.Button(app, text="Annual expenses", width=15).place(relx=0.7, rely=0.4)
