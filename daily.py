@@ -32,21 +32,22 @@ def create_daily_interface() -> None:
     c_text.set('Select one')
     lists = ["Food", "Academics", "Transportation", "Entertainment"]
     category = tk.OptionMenu(add_interface, c_text, *lists)
+    category.pack()
     category.place(relx=0.4, rely=0.3)
 
     # How much did you spend?
     tk.Label(add_interface, text='How much?').place(relx=0.2, rely=0.5)
-    a_text = tk.IntVar()
-    a_text.set(0)
+    a_text = tk.StringVar()
+    a_text.set('0')
     amount = tk.Entry(add_interface, textvariable=a_text)
     amount.place(relx=0.4, rely=0.5)
 
     # Complete button
     complete = tk.Button(add_interface, text="Complete!",
-                         command=add_expense(datetime.today().strftime('%Y-%m-%d'),
-                                             w_text.get(),
-                                             c_text.get(),
-                                             a_text.get()))
+                         command=lambda: add_expense(datetime.today().strftime('%Y-%m-%d'),
+                                                     w_text.get(),
+                                                     c_text.get(),
+                                                     a_text.get()))
     complete.place(relx=0.5, rely=0.7, anchor='center')
 
     add_interface.mainloop()
