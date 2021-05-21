@@ -8,7 +8,6 @@ def add_expense(date: str, where: str, which: str, amount: int):
     """Add a new row of information to a csv file"""
     with open('expense_record.csv', 'a') as c_file:
         w_object = writer(c_file)
-        c_file.write('/n')
         w_object.writerow([date, where, which, amount])
         c_file.close()
 
@@ -37,7 +36,7 @@ def create_daily_interface() -> None:
 
     # How much did you spend?
     tk.Label(add_interface, text='How much?').place(relx=0.2, rely=0.5)
-    a_text = tk.StringVar()
+    a_text = tk.StringVar(add_interface)
     a_text.set('0')
     amount = tk.Entry(add_interface, textvariable=a_text)
     amount.place(relx=0.4, rely=0.5)
