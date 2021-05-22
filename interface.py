@@ -28,10 +28,6 @@ total_amount.set('')
 notification1 = tk.Label(app, text="Rachel's Expense Tracker",
                          height=5,
                          font=("Helvetica", 20, 'bold')).place(relx=0.1, rely=0.05)
-# amount_label = tk.Label(app, text='￦' + total_amount.get(),
-#                         height=4,
-#                         fg='pink',
-#                         font=("MS Sans Serif", 26, 'bold')).place(relx=0.4, rely=0.04)
 
 # Buttons
 add_btn = tk.Button(app, text="Add expense",
