@@ -1,13 +1,14 @@
 """A python file which creates the interface to check the daily spent"""
 import tkinter as tk
 from datetime import datetime
-from csv import writer
+import csv
+import tkinter.ttk as ttk
 
 
 def add_expense(date: str, where: str, which: str, amount: int):
     """Add a new row of information to a csv file"""
     with open('expense_record.csv', 'a') as c_file:
-        w_object = writer(c_file)
+        w_object = csv.writer(c_file)
         w_object.writerow([date, where, which, amount])
         c_file.close()
 
@@ -50,3 +51,26 @@ def create_daily_interface() -> None:
     complete.place(relx=0.5, rely=0.7, anchor='center')
 
     add_interface.mainloop()
+
+
+def daily_expense_record_interface() -> None:
+    """Create an interface of showing the list of all daily expenses"""
+    daily_interface = tk.Tk()
+    total_amount = tk.IntVar(daily_interface)
+    tk.Label(daily_interface, text="Today, you spent..." + str(total_amount.get()),
+             height=5, font=("Helvetica", 20, 'bold')).place(relx=0.1, rely=0.05)
+    current_date = datetime.today().strftime('%Y-%m-%d')
+    with open('expense_record.csv') as c_file:
+        reader = csv.reader(c_file)
+        next(reader)
+
+        tree = ttk.Treeview()
+        tree.insert('', 'end', 'widgets', text="Widget Tour")
+        tree.insert('', 0, 'gallery', text='Applications')
+        # for row in reader:
+        #     ...
+
+        amount = sum([int(row[3]) for row in reader if row[0] == current_date])
+        total_amount.set(amount)
+
+    daily_interface.mainloop()

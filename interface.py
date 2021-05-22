@@ -4,22 +4,11 @@ This Python file is for creating the Desktop GUI of the expense tracker
 import tkinter as tk
 from datetime import datetime
 from daily import create_daily_interface
-import csv
 
 
 def open_daily() -> None:
     """This function opens a new window for recording the daily expense data."""
     create_daily_interface()
-
-
-def daily_expense() -> int:
-    """This function calculates the sum of all the expenses spent on that day."""
-    current_date = datetime.today().strftime('%Y-%m-%d')
-    with open('expense_record.csv') as c_file:
-        read_c_file = csv.reader(c_file)
-        next(read_c_file)
-
-        return sum([int(row[3]) for row in read_c_file if row[0] == current_date])
 
 
 app = tk.Tk()
@@ -35,6 +24,7 @@ date = tk.Label(app, text=datetime.today().strftime('%Y-%m-%d'),
 # Overall record
 total_amount = tk.StringVar(app)
 total_amount.set('')
+# Need to make that the users can type their name...!
 notification1 = tk.Label(app, text="Rachel's Expense Tracker",
                          height=5,
                          font=("Helvetica", 20, 'bold')).place(relx=0.1, rely=0.05)
