@@ -54,6 +54,11 @@ def create_daily_interface() -> None:
     add_interface.mainloop()
 
 
+def onClick(amount: str) -> None:
+    """Create a message box"""
+    messagebox.showinfo('Result!', 'You spent ￦' + str(amount))
+
+
 def daily_expense_record_interface() -> None:
     """Create an interface of showing the list of all daily expenses"""
     # These things should be displayed on the message box
@@ -62,13 +67,12 @@ def daily_expense_record_interface() -> None:
     # tk.Label(daily_interface, text="Today, you spent..." + str(total_amount.get()),
     #          height=5, font=("Helvetica", 20, 'bold')).place(relx=0.1, rely=0.05)
     daily_interface.title("Today you spent...")
-    daily_interface.geometry('800x800')
+    daily_interface.geometry('600x400')
     tree = ttk.Treeview(daily_interface, columns=('#1', '#2', '#3'), show='headings')
     tree.heading('#1', text='Where')
     tree.heading('#2', text='Category')
     tree.heading('#3', text='Amount')
-    amount = tk.IntVar(daily_interface)
-    amount.set(0)
+    amount = tk.StringVar(daily_interface)
     with open('expense_record.csv') as c_file:
         reader = csv.reader(c_file)
         next(reader)
@@ -76,7 +80,7 @@ def daily_expense_record_interface() -> None:
         for row in reader:
             if row[0] == current_date:
                 tree.insert('', tk.END, values=(row[1], row[2], row[3]))
-        amount.set(sum([int(row[3]) for row in reader if row[0] == current_date]))
+        amount.set(str(sum([int(row[3]) for row in reader if row[0] == current_date])))
 
     tree.grid(row=0, column=0, sticky='nsew')
     # Add a scrollbar
@@ -86,11 +90,6 @@ def daily_expense_record_interface() -> None:
 
     # Add a button which shows the messagebox
     message_btn = tk.Button(daily_interface, text="Total amount?",
-                            command=message_box(amount.get()))
-    message_btn.grid(row=1, column=1, sticky='s')
+                            command=onClick(amount.get()))
+    message_btn.place(relx=0.4, rely=0.9)
     daily_interface.mainloop()
-
-
-def message_box(amount: int) -> None:
-    """Create a message box"""
-    messagebox.showinfo('You spent ￦' + str(amount))
