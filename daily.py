@@ -3,7 +3,6 @@ import tkinter as tk
 from datetime import datetime
 import csv
 import tkinter.ttk as ttk
-from tkinter import messagebox
 
 
 def add_expense(date: str, where: str, which: str, amount: int):
