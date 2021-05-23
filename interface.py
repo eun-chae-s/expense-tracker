@@ -4,6 +4,7 @@ This Python file is for creating the Desktop GUI of the expense tracker
 import tkinter as tk
 from datetime import datetime
 from daily import create_daily_interface, daily_expense_record_interface
+from monthly import monthly_expense_record_interface
 
 
 def open_daily() -> None:
@@ -14,6 +15,11 @@ def open_daily() -> None:
 def daily_expense_check() -> None:
     """This function opens a new window for showing the expense for today"""
     daily_expense_record_interface()
+
+
+def monthly_expense_check() -> None:
+    """This function opens a new window for showing the expense for the selected month"""
+    monthly_expense_record_interface()
 
 
 app = tk.Tk()
@@ -37,7 +43,8 @@ add_btn = tk.Button(app, text="Add expense",
                     command=open_daily, width=15).place(relx=0.1, rely=0.4)
 daily_btn = tk.Button(app, text="Daily expenses",
                       command=daily_expense_check, width=15).place(relx=0.3, rely=0.4)
-monthly_btn = tk.Button(app, text="Monthly expenses", width=15).place(relx=0.5, rely=0.4)
+monthly_btn = tk.Button(app, text="Monthly expenses",
+                        command=monthly_expense_check, width=15).place(relx=0.5, rely=0.4)
 annual_btn = tk.Button(app, text="Annual expenses", width=15).place(relx=0.7, rely=0.4)
 
 # Run the app
