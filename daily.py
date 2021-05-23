@@ -55,11 +55,7 @@ def create_daily_interface() -> None:
 
 def daily_expense_record_interface() -> None:
     """Create an interface of showing the list of all daily expenses"""
-    # These things should be displayed on the message box
     daily_interface = tk.Tk()
-    # total_amount = tk.IntVar(daily_interface)
-    # tk.Label(daily_interface, text="Today, you spent..." + str(total_amount.get()),
-    #          height=5, font=("Helvetica", 20, 'bold')).place(relx=0.1, rely=0.05)
     daily_interface.title("Today you spent...")
     daily_interface.geometry('600x400')
     tree = ttk.Treeview(daily_interface, columns=('#1', '#2', '#3'), show='headings')
