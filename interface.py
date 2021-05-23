@@ -27,8 +27,6 @@ date = tk.Label(app, text=datetime.today().strftime('%Y-%m-%d'),
                 font=("Helvetica", 13, 'italic')).place(relx=0.8, rely=0.01)
 
 # Overall record
-total_amount = tk.StringVar(app)
-total_amount.set('')
 # Need to make that the users can type their name...!
 notification1 = tk.Label(app, text="Rachel's Expense Tracker",
                          height=5,

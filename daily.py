@@ -54,11 +54,6 @@ def create_daily_interface() -> None:
     add_interface.mainloop()
 
 
-def onClick(amount: str) -> None:
-    """Create a message box"""
-    messagebox.showinfo('Result!', 'You spent ￦' + str(amount))
-
-
 def daily_expense_record_interface() -> None:
     """Create an interface of showing the list of all daily expenses"""
     # These things should be displayed on the message box
@@ -72,7 +67,6 @@ def daily_expense_record_interface() -> None:
     tree.heading('#1', text='Where')
     tree.heading('#2', text='Category')
     tree.heading('#3', text='Amount')
-    amount = tk.StringVar(daily_interface)
     with open('expense_record.csv') as c_file:
         reader = csv.reader(c_file)
         next(reader)
@@ -80,7 +74,6 @@ def daily_expense_record_interface() -> None:
         for row in reader:
             if row[0] == current_date:
                 tree.insert('', tk.END, values=(row[1], row[2], row[3]))
-        amount.set(str(sum([int(row[3]) for row in reader if row[0] == current_date])))
 
     tree.grid(row=0, column=0, sticky='nsew')
     # Add a scrollbar
@@ -88,8 +81,18 @@ def daily_expense_record_interface() -> None:
     tree.configure(yscroll=scrollbar.set)
     scrollbar.grid(row=0, column=1, sticky='ns')
 
-    # Add a button which shows the messagebox
-    message_btn = tk.Button(daily_interface, text="Total amount?",
-                            command=onClick(amount.get()))
-    message_btn.place(relx=0.4, rely=0.9)
+    # Add a label for the total amount
+    global amount_found
+    with open('expense_record.csv') as c_file:
+        reader = csv.reader(c_file)
+        next(reader)
+        current_date = datetime.today().strftime('%Y-%m-%d')
+        amount_found = sum([int(row[3]) for row in reader if row[0] == current_date])
+    message1 = tk.Label(daily_interface, text="Total amount?",
+                        font=("Helvetica", 15, 'bold'))
+    message1.place(relx=0.5, rely=0.8, anchor='center')
+    message2 = tk.Label(daily_interface, text='￦ ' + str(amount_found),
+                        fg='pink',
+                        font=("Helvetica", 15, 'bold'))
+    message2.place(relx=0.5, rely=0.9, anchor='center')
     daily_interface.mainloop()
