@@ -34,7 +34,8 @@ def monthly_expense_record_interface() -> None:
 def create_graph(event) -> None:
     """This function will create a pie chart showing the distribution of expenses"""
     amount = 0
-    data = {'Place': [], 'Category': []}
+    total_record = 0
+    data = {"Food": 0, "Academics": 0, "Transportation": 0, "Entertainment": 0}
     with open('expense_record.csv', 'r') as file:
         reader = csv.reader(file)
         next(reader)
@@ -45,18 +46,23 @@ def create_graph(event) -> None:
         for row in reader:
             date = row[0].split('-')
             if date[1] == months_numeric[month_combobox.get()]:
-                data['Place'].append(row[1])
-                data['Category'].append(row[2])
+                data[row[2]] += 1
                 amount += int(row[3])
+                total_record += 1
 
+    data_modified = {'percentage': [(data['Food'] / total_record) * 100,
+                                    (data['Academics'] / total_record) * 100,
+                                    (data['Transportation'] / total_record) * 100,
+                                    (data['Entertainment'] / total_record) * 100]}
     amount_label = tk.Label(monthly_interface, text="You spent " + str(amount),
                             font=("Helvetica", 17, 'italic'))
-    amount_label.place(relx=0.6, rely=0.6)
-    df = DataFrame(data, columns=['Place', 'Category'], index=[])
-    figure = plt.Figure(figsize=(6, 5), dpi=100)
+    amount_label.place(relx=0.1, rely=0.4)
+    df = DataFrame(data_modified, columns=['percentage'],
+                   index=['Food', 'Academics', 'Transportation', 'Entertainment'])
+    figure = plt.Figure(figsize=(5, 3), dpi=100)
     ax = figure.add_subplot(111)
+    df.plot(y='percentage', kind='pie', ax=ax, figsize=(5, 3), legend=False)
     pie_chart = FigureCanvasTkAgg(figure, monthly_interface)
-    pie_chart.get_tk_widget().place(relx=0.1, rely=0.6)
-    df = df[['Place', 'Category']].groupby('Category').sum()
-    df.plot(kind='pie', subplots=True, figsize=(5, 5))
+    pie_chart.get_tk_widget().place(relx=0.1, rely=0.5)
+
     ax.set_title('Distribution of expenses')
