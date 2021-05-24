@@ -61,7 +61,7 @@ def create_graph(event) -> None:
                    index=['Food', 'Academics', 'Transportation', 'Entertainment'])
     figure = plt.Figure(figsize=(5, 3), dpi=100)
     ax = figure.add_subplot(111)
-    df.plot(y='percentage', kind='pie', ax=ax, figsize=(5, 3), legend=False)
+    df.plot(y='percentage', kind='pie', ax=ax, figsize=(5, 3), legend=False, autopct='%1.1f%%')
     pie_chart = FigureCanvasTkAgg(figure, monthly_interface)
     pie_chart.get_tk_widget().place(relx=0.1, rely=0.5)
 
