@@ -40,7 +40,7 @@ def create_graph(event) -> None:
         next(reader)
         for row in reader:
             date = row[0].split('-')
-            if date[1] == year_combobox.get():
+            if date[0] == year_combobox.get():
                 data[row[2]] += 1
                 amount += int(row[3])
                 total_record += 1
@@ -49,8 +49,8 @@ def create_graph(event) -> None:
                                     (data['Academics'] / total_record) * 100,
                                     (data['Transportation'] / total_record) * 100,
                                     (data['Entertainment'] / total_record) * 100]}
-    amount_label = tk.Label(yearly_interface, text="You spent " + str(amount),
-                            font=("Helvetica", 17, 'italic'))
+    amount_label = tk.Label(yearly_interface, text="You spent ￦ " + str(amount),
+                            font=("Helvetica", 17, 'bold'))
     amount_label.place(relx=0.1, rely=0.4)
     df = DataFrame(data_modified, columns=['percentage'],
                    index=['Food', 'Academics', 'Transportation', 'Entertainment'])

@@ -54,8 +54,8 @@ def create_graph(event) -> None:
                                     (data['Academics'] / total_record) * 100,
                                     (data['Transportation'] / total_record) * 100,
                                     (data['Entertainment'] / total_record) * 100]}
-    amount_label = tk.Label(monthly_interface, text="You spent " + str(amount),
-                            font=("Helvetica", 17, 'italic'))
+    amount_label = tk.Label(monthly_interface, text="You spent ￦ " + str(amount),
+                            font=("Helvetica", 17, 'bold'))
     amount_label.place(relx=0.1, rely=0.4)
     df = DataFrame(data_modified, columns=['percentage'],
                    index=['Food', 'Academics', 'Transportation', 'Entertainment'])
