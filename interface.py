@@ -5,6 +5,7 @@ import tkinter as tk
 from datetime import datetime
 from daily import create_daily_interface, daily_expense_record_interface
 from monthly import monthly_expense_record_interface
+from annual_spent import yearly_expense_record_interface
 
 
 def open_daily() -> None:
@@ -20,6 +21,11 @@ def daily_expense_check() -> None:
 def monthly_expense_check() -> None:
     """This function opens a new window for showing the expense for the selected month"""
     monthly_expense_record_interface()
+
+
+def annual_expense_check() -> None:
+    """This function opens a new window for showing the expense for the selected year"""
+    yearly_expense_record_interface()
 
 
 app = tk.Tk()
