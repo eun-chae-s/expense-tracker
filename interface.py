@@ -51,7 +51,8 @@ daily_btn = tk.Button(app, text="Daily expenses",
                       command=daily_expense_check, width=15).place(relx=0.3, rely=0.4)
 monthly_btn = tk.Button(app, text="Monthly expenses",
                         command=monthly_expense_check, width=15).place(relx=0.5, rely=0.4)
-annual_btn = tk.Button(app, text="Annual expenses", width=15).place(relx=0.7, rely=0.4)
+annual_btn = tk.Button(app, text="Annual expenses",
+                       command=annual_expense_check,width=15).place(relx=0.7, rely=0.4)
 
 # Run the app
 app.mainloop()
